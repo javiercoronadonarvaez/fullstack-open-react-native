@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  logoContainer: {
+  logoAndRepoContainer: {
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
@@ -14,11 +14,8 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "column",
     marginLeft: 10,
-    justifyContent: "space-between", // Align description to the bottom
-    flexShrink: 1, // Prevents text from overflowing
-  },
-  fullName: {
-    fontWeight: "bold",
+    justifyContent: "space-between",
+    flexShrink: 1,
   },
   description: {
     color: "gray",
@@ -28,7 +25,7 @@ const styles = StyleSheet.create({
     color: "white",
     paddingHorizontal: 6,
     paddingVertical: 3,
-    borderRadius: 4,
+    borderRadius: 1,
     alignSelf: "flex-start", // Align to the left
     marginTop: 4,
   },
@@ -55,8 +52,8 @@ const countThousands = (number) => {
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View>
-      <View style={styles.logoContainer}>
+    <View style={{ backgroundColor: "white" }}>
+      <View style={styles.logoAndRepoContainer}>
         <Image
           style={styles.tinyLogo}
           source={{
