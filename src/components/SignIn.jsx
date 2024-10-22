@@ -100,8 +100,7 @@ const SignInHandler = () => {
     console.log("Password", password);
 
     try {
-      const { accessToken } = await signIn({ username, password });
-      console.log("TOKEN", accessToken);
+      await signIn({ username, password });
     } catch (e) {
       console.log("ERROR", e);
     }
