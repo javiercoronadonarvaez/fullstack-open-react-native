@@ -2,6 +2,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { Link } from "react-router-native";
 import Text from "./Text";
 import Constants from "expo-constants";
+import useAuthStorage from "../hooks/useAuthStorage";
 
 const styles = StyleSheet.create({
   scrollableContainer: {
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const authStorage = useAuthStorage();
+  const accessToken = authStorage.getAccessToken();
+  console.log("ACCESS TOKEN FOR APP BAR", accessToken);
+
   return (
     <View style={styles.scrollableContainer}>
       <ScrollView horizontal>
@@ -28,6 +33,9 @@ const AppBar = () => {
         </Link>
         <Link to="/sign-in">
           <Text style={styles.linkContainer}>Sign-In</Text>
+        </Link>
+        <Link to="/sign-out">
+          <Text style={styles.linkContainer}>Sign Out</Text>
         </Link>
       </ScrollView>
     </View>
