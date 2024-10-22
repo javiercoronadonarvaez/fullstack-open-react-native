@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   language: {
-    backgroundColor: "#0366d6", // Button-like color
+    backgroundColor: "#0366d6",
     color: "white",
     paddingHorizontal: 6,
     paddingVertical: 3,
-    borderRadius: 1,
-    alignSelf: "flex-start", // Align to the left
+    borderRadius: 12,
+    alignSelf: "flex-start",
     marginTop: 4,
+    marginLeft: 10,
   },
   statsContainer: {
     flexDirection: "row",

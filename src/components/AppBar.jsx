@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   scrollableContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    paddingLeft: 13,
     backgroundColor: "#24292e",
     fontWeight: "bold",
   },
@@ -25,33 +25,6 @@ const AppBar = () => {
       <ScrollView horizontal>
         <Link to="/">
           <Text style={styles.linkContainer}>Repositories</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
         </Link>
         <Link to="/sign-in">
           <Text style={styles.linkContainer}>Sign-In</Text>
