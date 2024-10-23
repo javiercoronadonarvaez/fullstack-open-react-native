@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     width: "95%",
-    justifyContent: "center", // Center content vertically
-    alignItems: "center", // Center content horizontally
-    textAlign: "center", // Ensure text is centered if applicable
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
   },
 });
 
@@ -81,6 +81,7 @@ const RepositoryItem = ({ gitHubUser }) => {
   const { userId } = useParams();
   const { data } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id: userId },
+    fetchPolicy: "cache-and-network",
   });
 
   useEffect(() => {

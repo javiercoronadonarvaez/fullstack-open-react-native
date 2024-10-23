@@ -6,6 +6,7 @@ import useRepositories from "../hooks/useRepositories";
 import AppBar from "./AppBar";
 import RepositoryItem from "./RepositoryItem";
 import RepositoryList from "./RepositoryList";
+import CreateReview from "./CreateReview";
 import SignIn from "./SignIn";
 
 import theme from "../theme";
@@ -41,6 +42,7 @@ const Main = () => {
           element={<RepositoryList repositoryNodes={repositoryNodes} />}
         />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/create-review" element={<CreateReview />} />
         <Route
           path="/:userId"
           element={<RepositoryItem gitHubUser={gitHubUser} />}

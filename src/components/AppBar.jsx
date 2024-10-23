@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   linkContainer: {
     color: "white",
-    paddingRight: 5,
+    paddingRight: 20,
     paddingTop: Constants.statusBarHeight,
     paddingBottom: Constants.statusBarHeight,
   },
@@ -43,6 +43,9 @@ const AppBar = () => {
       <ScrollView horizontal>
         <Link to="/">
           <Text style={styles.linkContainer}>Repositories</Text>
+        </Link>
+        <Link to="/create-review">
+          <Text style={styles.linkContainer}>Create a Review</Text>
         </Link>
         {user ? (
           <>
