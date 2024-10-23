@@ -1,5 +1,5 @@
-import { FlatList, View, StyleSheet, TouchableHighlight } from "react-native";
-import useRepositories from "../hooks/useRepositories";
+import { FlatList, View, StyleSheet } from "react-native";
+import { Link } from "react-router-native";
 import RepositoryItem from "./RepositoryItem";
 
 const styles = StyleSheet.create({
@@ -10,26 +10,44 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = () => {
-  const { repositories } = useRepositories();
+const RepositoryList = ({ repositoryNodes }) => {
+  // const { repositories } = useRepositories();
+  // const navigate = useNavigate();
 
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
+  // const repositoryNodes = repositories
+  //   ? repositories.edges.map((edge) => edge.node)
+  //   : [];
+
+  // return (
+  //   <FlatList
+  //     data={repositoryNodes}
+  //     ItemSeparatorComponent={ItemSeparator}
+  //     renderItem={({ item, separators }) => (
+  //       <Pressable
+  //         key={item.key}
+  //         //onPress={() => navigate(`/${item.id}`)}
+  //         onShowUnderlay={separators.highlight}
+  //         onHideUnderlay={separators.unhighlight}
+  //       >
+  //         <RepositoryItem gitHubUser={item} />
+  //       </Pressable>
+  //     )}
+  //   />
+  // );
 
   return (
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item, separators }) => (
-        <TouchableHighlight
+        <Link
           key={item.key}
-          onPress={() => this._onPress(item)}
+          to={`/${item.id}`}
           onShowUnderlay={separators.highlight}
           onHideUnderlay={separators.unhighlight}
         >
-          <RepositoryItem item={item} />
-        </TouchableHighlight>
+          <RepositoryItem gitHubUser={item} />
+        </Link>
       )}
     />
   );
