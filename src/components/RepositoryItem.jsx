@@ -53,9 +53,10 @@ const countThousands = (number) => {
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View testID="repositoryItem" style={{ backgroundColor: "white" }}>
       <View style={styles.logoAndRepoContainer}>
         <Image
+          testID="repositoryImage"
           style={styles.tinyLogo}
           source={{
             uri: item.ownerAvatarUrl,
