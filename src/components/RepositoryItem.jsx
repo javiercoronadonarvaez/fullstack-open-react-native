@@ -1,4 +1,5 @@
 import { View, Image, StyleSheet, Pressable } from "react-native";
+import { useParams } from "react-router-native";
 import Text from "./Text";
 
 const styles = StyleSheet.create({
@@ -47,15 +48,17 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   button: {
-    backgroundColor: "#0366d6", // Button-like color
+    backgroundColor: "#0366d6",
     color: "white",
-    height: 40,
-    margin: 12,
-    padding: 10,
-    width: "80%",
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    alignSelf: "center",
+    marginTop: 10,
+    width: "95%",
+    justifyContent: "center", // Center content vertically
+    alignItems: "center", // Center content horizontally
+    textAlign: "center", // Ensure text is centered if applicable
   },
 });
 
@@ -67,8 +70,9 @@ const countThousands = (number) => {
 };
 
 const RepositoryItem = ({ gitHubUser }) => {
-  const openGithub = false;
-  const displayButtonStyle = openGithub
+  const { userId } = useParams();
+
+  const displayButtonStyle = userId
     ? { ...styles.button, display: "flex" }
     : { ...styles.button, display: "none" };
 

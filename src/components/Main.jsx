@@ -7,7 +7,6 @@ import AppBar from "./AppBar";
 import RepositoryItem from "./RepositoryItem";
 import RepositoryList from "./RepositoryList";
 import SignIn from "./SignIn";
-//import BodyMassIndexCalculator from "./ExampleUseFormik";
 
 import theme from "../theme";
 
@@ -40,7 +39,6 @@ const Main = () => {
         <Route
           path="/"
           element={<RepositoryList repositoryNodes={repositoryNodes} />}
-          //element={<RepositoryList />}
         />
         <Route path="/sign-in" element={<SignIn />} />
         <Route
