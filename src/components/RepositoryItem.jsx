@@ -1,9 +1,12 @@
 import { View, Image, StyleSheet, Pressable } from "react-native";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-native";
 import { useQuery } from "@apollo/client";
 import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
 import * as Linking from "expo-linking";
 import Text from "./Text";
+
+import RepositoryReviews from "./RepositoryReviews";
 
 const styles = StyleSheet.create({
   wholeContainer: {
@@ -73,22 +76,29 @@ const countThousands = (number) => {
 };
 
 const RepositoryItem = ({ gitHubUser }) => {
+  const [url, setUrl] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const { userId } = useParams();
   const { data } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id: userId },
   });
+
+  useEffect(() => {
+    if (data) {
+      setUrl(data.repository.url);
+      console.log("Repo Data", data);
+      setReviews(
+        data.repository.reviews.edges.map((repository) => repository.node)
+      );
+    }
+  }, [data]);
 
   const displayButtonStyle = userId
     ? { ...styles.button, display: "flex" }
     : { ...styles.button, display: "none" };
 
   const handleOpenGitHubButton = async () => {
-    console.log("HERE");
-
-    if (data) {
-      console.log("RETRIEVED USER INFO", data.repository.url);
-      Linking.openURL(data.repository.url);
-    }
+    Linking.openURL(url);
   };
 
   return (
@@ -128,6 +138,7 @@ const RepositoryItem = ({ gitHubUser }) => {
       <Pressable onPress={handleOpenGitHubButton}>
         <Text style={displayButtonStyle}>Open in GitHub</Text>
       </Pressable>
+      <RepositoryReviews reviews={reviews} />
     </View>
   );
 };
