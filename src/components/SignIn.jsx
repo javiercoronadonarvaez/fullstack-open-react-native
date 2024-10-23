@@ -67,6 +67,7 @@ const SignIn = ({ onSubmit }) => {
         value={formik.values.username}
         placeholder="Username"
         onChangeText={formik.handleChange("username")}
+        autoCapitalize="none"
       />
       {formik.touched.username && formik.errors.username && (
         <Text style={styles.error}>{formik.errors.username}</Text>

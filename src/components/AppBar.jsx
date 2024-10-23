@@ -1,8 +1,12 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Pressable } from "react-native";
+import { useApolloClient } from "@apollo/client";
 import { Link } from "react-router-native";
+import useUser from "../hooks/useUser";
 import Text from "./Text";
 import Constants from "expo-constants";
 import useAuthStorage from "../hooks/useAuthStorage";
+
+//import { useEffect } from "react";
 
 const styles = StyleSheet.create({
   scrollableContainer: {
@@ -21,9 +25,23 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { user, loading } = useUser();
   const authStorage = useAuthStorage();
-  const accessToken = authStorage.getAccessToken();
-  console.log("ACCESS TOKEN FOR APP BAR", accessToken);
+  const apolloClient = useApolloClient();
+  // useEffect(() => {
+  //   refetch();
+  // }, []);
+
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+
+  console.log("USER", user);
+
+  const signOut = async () => {
+    await authStorage.removeAccessToken();
+    apolloClient.resetStore();
+  };
 
   return (
     <View style={styles.scrollableContainer}>
@@ -31,12 +49,19 @@ const AppBar = () => {
         <Link to="/">
           <Text style={styles.linkContainer}>Repositories</Text>
         </Link>
-        <Link to="/sign-in">
-          <Text style={styles.linkContainer}>Sign-In</Text>
-        </Link>
-        <Link to="/sign-out">
-          <Text style={styles.linkContainer}>Sign Out</Text>
-        </Link>
+        {user ? (
+          <>
+            <Link to="/sign-out">
+              <Pressable onPress={signOut}>
+                <Text style={styles.linkContainer}>Sign Out</Text>
+              </Pressable>
+            </Link>
+          </>
+        ) : (
+          <Link to="/sign-in">
+            <Text style={styles.linkContainer}>Sign-In</Text>
+          </Link>
+        )}
       </ScrollView>
     </View>
   );
