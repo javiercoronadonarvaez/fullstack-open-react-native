@@ -1,5 +1,8 @@
 import { View, Image, StyleSheet, Pressable } from "react-native";
 import { useParams } from "react-router-native";
+import { useQuery } from "@apollo/client";
+import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
+import * as Linking from "expo-linking";
 import Text from "./Text";
 
 const styles = StyleSheet.create({
@@ -71,10 +74,22 @@ const countThousands = (number) => {
 
 const RepositoryItem = ({ gitHubUser }) => {
   const { userId } = useParams();
+  const { data } = useQuery(GET_SINGLE_REPOSITORY, {
+    variables: { id: userId },
+  });
 
   const displayButtonStyle = userId
     ? { ...styles.button, display: "flex" }
     : { ...styles.button, display: "none" };
+
+  const handleOpenGitHubButton = async () => {
+    console.log("HERE");
+
+    if (data) {
+      console.log("RETRIEVED USER INFO", data.repository.url);
+      Linking.openURL(data.repository.url);
+    }
+  };
 
   return (
     <View testID="repositorygitHubUser" style={{ backgroundColor: "white" }}>
@@ -110,7 +125,7 @@ const RepositoryItem = ({ gitHubUser }) => {
           <Text style={styles.statLabel}>Rating</Text>
         </View>
       </View>
-      <Pressable>
+      <Pressable onPress={handleOpenGitHubButton}>
         <Text style={displayButtonStyle}>Open in GitHub</Text>
       </Pressable>
     </View>
