@@ -13,6 +13,7 @@ const useUser = () => {
   };
 
   useEffect(() => {
+    console.log("DATA", data);
     if (data) {
       fetchUser();
     }

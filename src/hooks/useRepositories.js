@@ -17,6 +17,7 @@ const useRepositories = () => {
   };
 
   useEffect(() => {
+    console.log("REPOSITORIES DATA", data);
     if (data) {
       fetchRepositories();
     }
