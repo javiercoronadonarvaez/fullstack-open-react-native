@@ -8,8 +8,8 @@ const useUser = () => {
 
   const fetchUser = async () => {
     // Replace the IP address part with your own IP address!
-    const user = data.me;
-    setUser(user);
+    const fetchedUser = data.me;
+    setUser(fetchedUser);
   };
 
   useEffect(() => {
