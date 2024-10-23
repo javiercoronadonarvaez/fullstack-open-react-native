@@ -6,8 +6,6 @@ import Text from "./Text";
 import Constants from "expo-constants";
 import useAuthStorage from "../hooks/useAuthStorage";
 
-//import { useEffect } from "react";
-
 const styles = StyleSheet.create({
   scrollableContainer: {
     flexDirection: "row",
@@ -28,9 +26,6 @@ const AppBar = () => {
   const { user, loading } = useUser();
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
-  // useEffect(() => {
-  //   refetch();
-  // }, []);
 
   if (loading) {
     return <Text>Loading...</Text>;
