@@ -7,21 +7,16 @@ const useRepositories = (orderingOption, searchKeyword) => {
   let orderDirection = "";
   switch (orderingOption) {
     case "highest":
-      console.log("HIGHEST");
       orderBy = "RATING_AVERAGE";
       orderDirection = "DESC";
       break;
     case "lowest":
-      console.log("LOWEST");
       orderBy = "RATING_AVERAGE";
       orderDirection = "ASC";
       break;
     default:
       break;
   }
-
-  console.log("ORDER BY: ", orderBy);
-  console.log("ORDER DIRECTION: ", orderDirection);
 
   const [repositories, setRepositories] = useState();
   //const [loading, setLoading] = useState(false);
@@ -42,7 +37,6 @@ const useRepositories = (orderingOption, searchKeyword) => {
   };
 
   useEffect(() => {
-    console.log("REPOSITORIES DATA", data);
     if (data) {
       fetchRepositories();
     }

@@ -1,7 +1,8 @@
+//import { useState } from "react";
 import { View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useApolloClient } from "@apollo/client";
 import { Link, useNavigate } from "react-router-native";
-import useUser from "../hooks/useUser";
+//import useUser from "../hooks/useUser";
 import Text from "./Text";
 import Constants from "expo-constants";
 import useAuthStorage from "../hooks/useAuthStorage";
@@ -22,20 +23,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBar = () => {
-  const { user, loading } = useUser();
+const AppBar = ({ user, setIncludeReviews }) => {
+  //const [includeReviews, setIncludeReviews] = useState(false);
+  //const { user, loading } = useUser(includeReviews);
   const navigate = useNavigate();
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
 
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
+  //console.log("FETCH REVIEWS", includeReviews);
+
+  // if (loading) {
+  //   return <Text>Loading...</Text>;
+  // }
 
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
     navigate("/");
+  };
+
+  const activatePersonalReviews = () => {
+    setIncludeReviews(true);
+    navigate("/my-reviews");
   };
 
   return (
@@ -49,6 +58,9 @@ const AppBar = () => {
             <Link to="/create-review">
               <Text style={styles.linkContainer}>Create a Review</Text>
             </Link>
+            <Pressable onPress={activatePersonalReviews}>
+              <Text style={styles.linkContainer}>My Reviews</Text>
+            </Pressable>
             <Link to="/sign-out">
               <Pressable onPress={signOut}>
                 <Text style={styles.linkContainer}>Sign Out</Text>

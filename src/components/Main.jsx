@@ -1,16 +1,20 @@
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Route, Routes, Navigate, useMatch } from "react-router-native";
 
+import useUser from "../hooks/useUser";
 import useRepositories from "../hooks/useRepositories";
 
 import AppBar from "./AppBar";
 import RepositoryItem from "./RepositoryItem";
 import RepositoryList from "./RepositoryList";
 import CreateReview from "./CreateReview";
+import UserReviews from "./UserReviews";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 import theme from "../theme";
+//import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +25,8 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const [includeReviews, setIncludeReviews] = useState(false);
+  const { user } = useUser(includeReviews);
   const { repositories } = useRepositories();
   const match = useMatch("/:userId");
 
@@ -34,7 +40,7 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      <AppBar />
+      <AppBar user={user} setIncludeReviews={setIncludeReviews} />
       <Routes>
         <Route
           path="/"
@@ -43,6 +49,7 @@ const Main = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/create-review" element={<CreateReview />} />
+        <Route path="/my-reviews" element={<UserReviews user={user} />} />
         <Route
           path="/:userId"
           element={<RepositoryItem gitHubUser={gitHubUser} />}
