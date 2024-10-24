@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_REPOSITORIES } from "../graphql/queries";
 
-const useRepositories = (orderingOption) => {
+const useRepositories = (orderingOption, searchKeyword) => {
   let orderBy = "";
   let orderDirection = "";
   switch (orderingOption) {
@@ -30,6 +30,7 @@ const useRepositories = (orderingOption) => {
     variables: {
       orderBy: orderBy ? orderBy : "CREATED_AT",
       orderDirection: orderDirection ? orderDirection : "DESC",
+      searchKeyword: searchKeyword ? searchKeyword : "",
       skip: orderingOption ? !orderingOption : null,
     },
   });

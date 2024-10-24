@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-  const { repositories } = useRepositories("default");
+  const { repositories } = useRepositories();
   const match = useMatch("/:userId");
 
   const repositoryNodes = repositories
