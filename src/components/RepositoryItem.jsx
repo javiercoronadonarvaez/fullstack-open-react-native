@@ -140,7 +140,7 @@ const RepositoryItem = ({ gitHubUser }) => {
       <Pressable onPress={handleOpenGitHubButton}>
         <Text style={displayButtonStyle}>Open in GitHub</Text>
       </Pressable>
-      <RepositoryReviews reviews={reviews} />
+      <RepositoryReviews reviews={reviews} reviewActions={false} />
     </View>
   );
 };

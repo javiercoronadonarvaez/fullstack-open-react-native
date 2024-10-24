@@ -38,6 +38,10 @@ const Main = () => {
     ? repositoryNodes.find((user) => user.id === match.params.userId)
     : null;
 
+  if (match) {
+    console.log("MATCH ID", match.params.userId);
+  }
+
   return (
     <View style={styles.container}>
       <AppBar user={user} setIncludeReviews={setIncludeReviews} />

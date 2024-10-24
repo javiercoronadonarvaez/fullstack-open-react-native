@@ -1,4 +1,5 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet, Pressable } from "react-native";
+import { Link } from "react-router-native";
 import format from "date-fns/format";
 import Text from "./Text";
 
@@ -52,6 +53,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+  button: {
+    backgroundColor: "#0366d6", // Button-like color
+    color: "white",
+    height: 40,
+    margin: 12,
+    padding: 10,
+    width: "80%",
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 4,
+  },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -75,12 +87,26 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const RepositoryReviews = ({ reviews }) => {
+const RepositoryReviews = ({ reviews, reviewActions }) => {
   return (
     <FlatList
       data={reviews}
       ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => (
+        <>
+          <ReviewItem review={item} />
+          {reviewActions ? (
+            <>
+              <Link to={`/${item.repositoryId}`} style={styles.button}>
+                <Text>View Repository</Text>
+              </Link>
+              <Pressable>
+                <Text style={styles.button}>Delete Review</Text>
+              </Pressable>
+            </>
+          ) : null}
+        </>
+      )}
       keyExtractor={({ id }) => id}
     />
   );
