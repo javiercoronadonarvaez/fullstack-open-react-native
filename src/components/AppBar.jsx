@@ -32,8 +32,6 @@ const AppBar = () => {
     return <Text>Loading...</Text>;
   }
 
-  console.log("USER", user);
-
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
