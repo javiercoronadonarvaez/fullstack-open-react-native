@@ -91,6 +91,7 @@ export const CreateReview = ({ onSubmit }) => {
         value={formik.values.repositoryName}
         placeholder="Repository Name"
         onChangeText={formik.handleChange("repositoryName")}
+        autoCapitalize="none"
       />
       {formik.touched.repositoryName && formik.errors.repositoryName && (
         <Text style={styles.error}>{formik.errors.repositoryName}</Text>
@@ -117,12 +118,14 @@ export const CreateReview = ({ onSubmit }) => {
         value={formik.values.text}
         placeholder="Review"
         onChangeText={formik.handleChange("text")}
+        autoCapitalize="none"
+        multiline
       />
       {formik.touched.text && formik.errors.text && (
         <Text style={styles.text}>{formik.errors.text}</Text>
       )}
       <Pressable onPress={formik.handleSubmit}>
-        <Text style={styles.button}>Sign In</Text>
+        <Text style={styles.button}>Create Review</Text>
       </Pressable>
     </View>
   );
@@ -136,10 +139,8 @@ const CreateReviewHandler = () => {
     const { ownerName, repositoryName, rating, text } = values;
     const ratingToNumber = parseInt(rating, 10);
 
-    console.log("Type of Rating", typeof ratingToNumber);
-
     try {
-      await createReview({
+      const createdReview = await createReview({
         variables: {
           ownerName,
           repositoryName,
@@ -147,9 +148,13 @@ const CreateReviewHandler = () => {
           text,
         },
       });
-      navigate("/");
+      console.log(
+        "FETCHED REVIEW REPO ID",
+        createdReview.data.createReview.repositoryId
+      );
+      navigate(`/${createdReview.data.createReview.repositoryId}`);
     } catch (e) {
-      console.log("ERROR", e);
+      console.error("ERROR", e);
     }
   };
 

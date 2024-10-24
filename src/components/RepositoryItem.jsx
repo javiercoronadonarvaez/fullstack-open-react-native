@@ -82,6 +82,7 @@ const RepositoryItem = ({ gitHubUser }) => {
   const { data } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: { id: userId },
     fetchPolicy: "cache-and-network",
+    skip: !userId,
   });
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useApolloClient } from "@apollo/client";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import useUser from "../hooks/useUser";
 import Text from "./Text";
 import Constants from "expo-constants";
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const { user, loading } = useUser();
+  const navigate = useNavigate();
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
 
@@ -36,6 +37,7 @@ const AppBar = () => {
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
+    navigate("/");
   };
 
   return (
@@ -44,11 +46,11 @@ const AppBar = () => {
         <Link to="/">
           <Text style={styles.linkContainer}>Repositories</Text>
         </Link>
-        <Link to="/create-review">
-          <Text style={styles.linkContainer}>Create a Review</Text>
-        </Link>
         {user ? (
           <>
+            <Link to="/create-review">
+              <Text style={styles.linkContainer}>Create a Review</Text>
+            </Link>
             <Link to="/sign-out">
               <Pressable onPress={signOut}>
                 <Text style={styles.linkContainer}>Sign Out</Text>
@@ -56,9 +58,14 @@ const AppBar = () => {
             </Link>
           </>
         ) : (
-          <Link to="/sign-in">
-            <Text style={styles.linkContainer}>Sign-In</Text>
-          </Link>
+          <>
+            <Link to="/sign-in">
+              <Text style={styles.linkContainer}>Sign-In</Text>
+            </Link>
+            <Link to="/sign-up">
+              <Text style={styles.linkContainer}>Sign-Up</Text>
+            </Link>
+          </>
         )}
       </ScrollView>
     </View>
