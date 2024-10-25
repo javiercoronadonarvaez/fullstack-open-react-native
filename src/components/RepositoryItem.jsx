@@ -76,6 +76,8 @@ const countThousands = (number) => {
 };
 
 const RepositoryItem = ({ gitHubUser }) => {
+  console.log("GITHUB USER REPO ITEM", gitHubUser);
+
   const [url, setUrl] = useState(null);
   const [reviews, setReviews] = useState([]);
   const { userId } = useParams();
@@ -88,7 +90,7 @@ const RepositoryItem = ({ gitHubUser }) => {
   useEffect(() => {
     if (data) {
       setUrl(data.repository.url);
-      console.log("Repo Data", data);
+      console.log("DATAAAAAAAAAAA", data);
       setReviews(
         data.repository.reviews.edges.map((repository) => repository.node)
       );

@@ -37,8 +37,12 @@ const Main = () => {
     ? repositoryNodes.find((user) => user.id === match.params.userId)
     : null;
 
+  if (repositoryNodes) {
+    console.log("REPO NODES", repositoryNodes);
+  }
+
   if (match) {
-    console.log("MATCH ID", match.params.userId);
+    console.log("GITHUB USER", gitHubUser);
   }
 
   return (

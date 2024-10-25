@@ -32,7 +32,7 @@ const RepositoryList = ({ repositoryNodes }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchKeywordDebounced] = useDebounce(searchKeyword, 500);
   const [filteredRepositoryNodes, setFilteredRepositoryNodes] = useState();
-  const { repositories } = useRepositories(
+  const { repositories, fetchMore } = useRepositories(
     orderingOption,
     searchKeywordDebounced
   );
@@ -80,6 +80,7 @@ const RepositoryList = ({ repositoryNodes }) => {
           <RepositoryItem gitHubUser={item} />
         </Link>
       )}
+      onEndReached={fetchMore}
     />
   );
 };
