@@ -37,14 +37,6 @@ const Main = () => {
     ? repositoryNodes.find((user) => user.id === match.params.userId)
     : null;
 
-  if (repositoryNodes) {
-    console.log("REPO NODES", repositoryNodes);
-  }
-
-  if (match) {
-    console.log("GITHUB USER", gitHubUser);
-  }
-
   return (
     <View style={styles.container}>
       <AppBar user={user} setIncludeReviews={setIncludeReviews} />

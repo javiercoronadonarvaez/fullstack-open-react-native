@@ -1,11 +1,10 @@
-// import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
 
 const useReviews = (userId) => {
   const { data, loading, fetchMore } = useQuery(GET_SINGLE_REPOSITORY, {
     variables: {
-      first: 1,
+      first: 2,
       id: userId,
     },
     fetchPolicy: "cache-and-network",
@@ -31,7 +30,8 @@ const useReviews = (userId) => {
   };
 
   return {
-    reviews: data?.repositories,
+    reviews: data?.repository.reviews,
+    url: data?.repository.url,
     fetchMore: handleFetchMoreReviews,
     loading,
   };

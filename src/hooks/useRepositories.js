@@ -1,4 +1,3 @@
-// import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_REPOSITORIES } from "../graphql/queries";
 
@@ -55,19 +54,5 @@ const useRepositories = (orderingOption, searchKeyword) => {
     refetch,
   };
 };
-
-// const fetchRepositories = async () => {
-//   // Replace the IP address part with your own IP address!
-//   const fetchedRepositories = data.repositories;
-//   setRepositories(fetchedRepositories);
-// };
-
-// useEffect(() => {
-//   if (data) {
-//     fetchRepositories();
-//   }
-// }, [data]);
-
-// return { repositories, loading, refetch: fetchRepositories };
 
 export default useRepositories;

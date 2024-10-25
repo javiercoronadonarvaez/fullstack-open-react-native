@@ -1,8 +1,9 @@
 import { View, Image, StyleSheet, Pressable } from "react-native";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-native";
-import { useQuery } from "@apollo/client";
-import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
+// import { useQuery } from "@apollo/client";
+// import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
+import useReviews from "../hooks/useReviews";
 import * as Linking from "expo-linking";
 import Text from "./Text";
 
@@ -76,35 +77,18 @@ const countThousands = (number) => {
 };
 
 const RepositoryItem = ({ gitHubUser }) => {
-  const [url, setUrl] = useState(null);
   const [reviews, setReviews] = useState([]);
   const { userId } = useParams();
-  const { data } = useQuery(GET_SINGLE_REPOSITORY, {
-    variables: {
-      id: userId,
-    },
-    fetchPolicy: "cache-and-network",
-    skip: !userId,
-  });
-
-  // const handleOpenGitHubButton = () => {
-  //   if (data && data.repository.url) {
-  //     Linking.openURL(data.repository.url);
-  //   }
-  // };
-
-  // const { repository } = data;
-  // const { reviews } = repository;
+  const { reviews: fetchedReviews, url, fetchMore } = useReviews(userId);
 
   useEffect(() => {
-    if (data) {
-      setUrl(data.repository.url);
-      console.log("DATAAAAAAAAAAA", data);
-      setReviews(
-        data.repository.reviews.edges.map((repository) => repository.node)
+    if (fetchedReviews) {
+      const reviewNodes = fetchedReviews.edges.map(
+        (repository) => repository.node
       );
+      setReviews(reviewNodes);
     }
-  }, [data]);
+  }, [fetchedReviews]);
 
   const displayButtonStyle = userId
     ? { ...styles.button, display: "flex" }
@@ -151,7 +135,11 @@ const RepositoryItem = ({ gitHubUser }) => {
       <Pressable onPress={handleOpenGitHubButton}>
         <Text style={displayButtonStyle}>Open in GitHub</Text>
       </Pressable>
-      <RepositoryReviews reviews={reviews} reviewActions={false} />
+      <RepositoryReviews
+        reviews={reviews}
+        reviewActions={false}
+        handleFetchMoreReviews={fetchMore}
+      />
     </View>
   );
 };
