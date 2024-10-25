@@ -18,7 +18,7 @@ const useRepositories = (orderingOption, searchKeyword) => {
       break;
   }
 
-  const { data, loading, fetchMore } = useQuery(GET_REPOSITORIES, {
+  const { data, loading, fetchMore, refetch } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
     variables: {
       orderBy: orderBy ? orderBy : "CREATED_AT",
@@ -52,6 +52,7 @@ const useRepositories = (orderingOption, searchKeyword) => {
     repositories: data?.repositories,
     fetchMore: handleFetchMore,
     loading,
+    refetch,
   };
 };
 

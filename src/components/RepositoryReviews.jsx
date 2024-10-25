@@ -89,7 +89,12 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const RepositoryReviews = ({ reviews, reviewActions, refetch }) => {
+const RepositoryReviews = ({
+  reviews,
+  reviewActions,
+  refetch,
+  handleFetchMoreReviews,
+}) => {
   const [deleteReview] = useMutation(DELETE_REVIEW);
 
   const handleDeleteReviewSubmit = (item) => {
@@ -136,6 +141,7 @@ const RepositoryReviews = ({ reviews, reviewActions, refetch }) => {
         </>
       )}
       keyExtractor={({ id }) => id}
+      onEndReached={handleFetchMoreReviews}
     />
   );
 };

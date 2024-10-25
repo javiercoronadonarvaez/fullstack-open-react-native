@@ -76,16 +76,25 @@ const countThousands = (number) => {
 };
 
 const RepositoryItem = ({ gitHubUser }) => {
-  console.log("GITHUB USER REPO ITEM", gitHubUser);
-
   const [url, setUrl] = useState(null);
   const [reviews, setReviews] = useState([]);
   const { userId } = useParams();
   const { data } = useQuery(GET_SINGLE_REPOSITORY, {
-    variables: { id: userId },
+    variables: {
+      id: userId,
+    },
     fetchPolicy: "cache-and-network",
     skip: !userId,
   });
+
+  // const handleOpenGitHubButton = () => {
+  //   if (data && data.repository.url) {
+  //     Linking.openURL(data.repository.url);
+  //   }
+  // };
+
+  // const { repository } = data;
+  // const { reviews } = repository;
 
   useEffect(() => {
     if (data) {
