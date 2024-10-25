@@ -14,7 +14,6 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 import theme from "../theme";
-//import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const [includeReviews, setIncludeReviews] = useState(false);
-  const { user } = useUser(includeReviews);
+  const { user, refetch } = useUser(includeReviews);
   const { repositories } = useRepositories();
   const match = useMatch("/:userId");
 
@@ -52,8 +51,14 @@ const Main = () => {
         />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/create-review" element={<CreateReview />} />
-        <Route path="/my-reviews" element={<UserReviews user={user} />} />
+        <Route
+          path="/create-review"
+          element={<CreateReview refetch={refetch} />}
+        />
+        <Route
+          path="/my-reviews"
+          element={<UserReviews user={user} refetch={refetch} />}
+        />
         <Route
           path="/:userId"
           element={<RepositoryItem gitHubUser={gitHubUser} />}

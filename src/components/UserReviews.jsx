@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import RepositoryReviews from "./RepositoryReviews";
 
-const UserReviews = ({ user }) => {
+const UserReviews = ({ user, refetch }) => {
   const [userReviews, setUserReviews] = useState([]);
 
   useEffect(() => {
     if (user && user.reviews) {
-      const edges = user.reviews.edges;
-      const repositoryId = user.repositoryId;
-      console.log("REPOSITORY ID", repositoryId);
-      setUserReviews(edges.map((repository) => repository.node));
+      const nodes = user.reviews.edges.map((repository) => repository.node);
+      console.log("NODES", nodes);
+      setUserReviews(nodes);
     }
   }, [user]);
 
-  return <RepositoryReviews reviews={userReviews} reviewActions={true} />;
+  return (
+    <RepositoryReviews
+      reviews={userReviews}
+      reviewActions={true}
+      refetch={refetch}
+    />
+  );
 };
 
 export default UserReviews;

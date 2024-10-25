@@ -89,11 +89,10 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const RepositoryReviews = ({ reviews, reviewActions }) => {
+const RepositoryReviews = ({ reviews, reviewActions, refetch }) => {
   const [deleteReview] = useMutation(DELETE_REVIEW);
 
   const handleDeleteReviewSubmit = (item) => {
-    console.log("ITEM FROM ARRAY", item);
     Alert.alert(
       "Delete Review",
       "Are you sure you want to delete this review?",
@@ -104,8 +103,14 @@ const RepositoryReviews = ({ reviews, reviewActions }) => {
         },
         {
           text: "OK",
-          onPress: () =>
-            deleteReview({ variables: { deleteReviewId: item.id } }),
+          onPress: async () => {
+            try {
+              await deleteReview({ variables: { deleteReviewId: item.id } });
+              await refetch({ includeReviews: true });
+            } catch (error) {
+              console.error("Error during delete or refetch:", error);
+            }
+          },
         },
       ]
     );
