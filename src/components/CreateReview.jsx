@@ -131,7 +131,7 @@ export const CreateReview = ({ onSubmit }) => {
   );
 };
 
-const CreateReviewHandler = ({ refetch }) => {
+const CreateReviewHandler = ({ refetchUser, refetchRepositories }) => {
   const [createReview] = useMutation(CREATE_REVIEW);
   const navigate = useNavigate();
 
@@ -152,7 +152,8 @@ const CreateReviewHandler = ({ refetch }) => {
         "FETCHED REVIEW REPO ID",
         createdReview.data.createReview.repositoryId
       );
-      await refetch();
+      await refetchUser();
+      await refetchRepositories();
       navigate(`/${createdReview.data.createReview.repositoryId}`);
     } catch (e) {
       console.error("ERROR", e);

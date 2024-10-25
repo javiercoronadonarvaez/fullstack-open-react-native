@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 const Main = () => {
   const [includeReviews, setIncludeReviews] = useState(false);
   const { user, refetch: refetchUser } = useUser(includeReviews);
-  const { repositories } = useRepositories();
+  const { repositories, refetch: refetchRepositories } = useRepositories();
   const match = useMatch("/:userId");
 
   const repositoryNodes = repositories
@@ -49,7 +49,12 @@ const Main = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route
           path="/create-review"
-          element={<CreateReview refetch={refetchUser} />}
+          element={
+            <CreateReview
+              refetchUser={refetchUser}
+              refetchRepositories={refetchRepositories}
+            />
+          }
         />
         <Route
           path="/my-reviews"

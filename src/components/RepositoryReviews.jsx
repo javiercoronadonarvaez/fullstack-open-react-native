@@ -48,23 +48,37 @@ const styles = StyleSheet.create({
   dateText: {
     color: "gray",
     fontSize: 14,
-    //marginLeft: 5,
   },
   reviewText: {
     marginTop: 10,
     fontSize: 14,
     lineHeight: 20,
   },
-  button: {
-    backgroundColor: "#0366d6", // Button-like color
-    color: "white",
-    height: 40,
-    margin: 12,
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  viewButton: {
+    flex: 1,
+    backgroundColor: "#0366d6",
     padding: 10,
-    width: "80%",
-    borderWidth: 1,
-    borderColor: "gray",
     borderRadius: 4,
+    marginRight: 5,
+    marginLeft: 10,
+  },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: "#d9534f",
+    padding: 10,
+    borderRadius: 4,
+    marginRight: 10,
+    marginLeft: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 
@@ -90,6 +104,7 @@ const ReviewItem = ({ review }) => {
 };
 
 const RepositoryReviews = ({
+  repositoryHeader,
   reviews,
   reviewActions,
   refetch,
@@ -125,23 +140,29 @@ const RepositoryReviews = ({
     <FlatList
       data={reviews}
       ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponent={repositoryHeader}
       renderItem={({ item }) => (
-        <>
+        <View>
           <ReviewItem review={item} />
           {reviewActions ? (
-            <>
-              <Link to={`/${item.repositoryId}`} style={styles.button}>
-                <Text>View Repository</Text>
+            <View style={styles.buttonContainer}>
+              <Link to={`/${item.repositoryId}`} style={styles.viewButton}>
+                <Text style={styles.buttonText}>View Repository</Text>
               </Link>
-              <Pressable onPress={() => handleDeleteReviewSubmit(item)}>
-                <Text style={styles.button}>Delete Review</Text>
+              <Pressable
+                onPress={() => handleDeleteReviewSubmit(item)}
+                style={styles.deleteButton}
+              >
+                <Text style={styles.buttonText}>Delete Review</Text>
               </Pressable>
-            </>
+            </View>
           ) : null}
-        </>
+        </View>
       )}
       keyExtractor={({ id }) => id}
       onEndReached={handleFetchMoreReviews}
+      onEndReachedThreshold={0.5}
+      contentContainerStyle={{ paddingBottom: 20 }}
     />
   );
 };

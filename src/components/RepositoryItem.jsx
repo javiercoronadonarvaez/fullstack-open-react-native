@@ -98,7 +98,7 @@ const RepositoryItem = ({ gitHubUser }) => {
     Linking.openURL(url);
   };
 
-  return (
+  const repositoryHeader = (
     <View testID="repositorygitHubUser" style={{ backgroundColor: "white" }}>
       <View style={styles.logoAndRepoContainer}>
         <Image
@@ -135,7 +135,13 @@ const RepositoryItem = ({ gitHubUser }) => {
       <Pressable onPress={handleOpenGitHubButton}>
         <Text style={displayButtonStyle}>Open in GitHub</Text>
       </Pressable>
+    </View>
+  );
+
+  return (
+    <View>
       <RepositoryReviews
+        repositoryHeader={repositoryHeader}
         reviews={reviews}
         reviewActions={false}
         handleFetchMoreReviews={fetchMore}
