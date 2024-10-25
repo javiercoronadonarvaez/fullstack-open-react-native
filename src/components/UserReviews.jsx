@@ -13,10 +13,6 @@ const UserReviews = ({ user }) => {
     }
   }, [user]);
 
-  console.log("USER REVIEWS", userReviews);
-  const repositoryIds = userReviews.map((review) => review.repositoryId);
-  console.log("REP IDs", repositoryIds);
-
   return <RepositoryReviews reviews={userReviews} reviewActions={true} />;
 };
 

@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View, Pressable } from "react-native";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-native";
 import { useFormik } from "formik";
-import { SIGN_UP } from "../graphql/queries";
+import { SIGN_UP } from "../graphql/mutations";
 import useSignIn from "../hooks/useSignIn";
 import Text from "./Text";
 import * as yup from "yup";

@@ -1,5 +1,7 @@
-import { FlatList, View, StyleSheet, Pressable } from "react-native";
+import { FlatList, View, StyleSheet, Pressable, Alert } from "react-native";
 import { Link } from "react-router-native";
+import { useMutation } from "@apollo/client";
+import { DELETE_REVIEW } from "../graphql/mutations";
 import format from "date-fns/format";
 import Text from "./Text";
 
@@ -88,6 +90,27 @@ const ReviewItem = ({ review }) => {
 };
 
 const RepositoryReviews = ({ reviews, reviewActions }) => {
+  const [deleteReview] = useMutation(DELETE_REVIEW);
+
+  const handleDeleteReviewSubmit = (item) => {
+    console.log("ITEM FROM ARRAY", item);
+    Alert.alert(
+      "Delete Review",
+      "Are you sure you want to delete this review?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () =>
+            deleteReview({ variables: { deleteReviewId: item.id } }),
+        },
+      ]
+    );
+  };
+
   return (
     <FlatList
       data={reviews}
@@ -100,7 +123,7 @@ const RepositoryReviews = ({ reviews, reviewActions }) => {
               <Link to={`/${item.repositoryId}`} style={styles.button}>
                 <Text>View Repository</Text>
               </Link>
-              <Pressable>
+              <Pressable onPress={() => handleDeleteReviewSubmit(item)}>
                 <Text style={styles.button}>Delete Review</Text>
               </Pressable>
             </>
